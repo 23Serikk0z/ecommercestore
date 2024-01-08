@@ -1,0 +1,51 @@
+{% load menu %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %} {% endblock %} </title>
+</head>
+<body>
+    
+    <nav class="max-w-4xl mx-auto py-4 px-6 flex items-center justify-between bg-teal-600">
+        <div class="logo">
+            <a href="/" class="text-2xl text-white">PetNet</a>
+        </div>
+
+        <div class="search">
+            <form method="get" action="/search/" class="flex items-center space-x-2">
+                <input type="search" name="query" placeholder="Search..." class="py-2 px-4 rounded-xl">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </button>
+                
+            </form>
+
+
+        </div>
+
+        <div class="menu flex items-center space-x-4">
+            {% menu %}
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'my_account' %}" class="py-2 px-4 bg-teal-800 text-white rounded-xl">Profile</a>
+                <a href="{% url 'my_store' %}" class="py-2 px-4 bg-teal-800 text-white rounded-xl">My store</a>
+            {% else %}
+                <a href="{% url 'signup' %}" class="py-2 px-4 bg-teal-800 text-white rounded-xl">Sign up</a>
+                <a href="{% url 'login' %}" class="py-2 px-4 bg-teal-800 text-white rounded-xl">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    
+    <div class="max-w-4xl mx-auto px-6 py-4">
+        
+        {% block content %} 
+        {% endblock %}
+        
+    </div>
+</body>
+</html>
